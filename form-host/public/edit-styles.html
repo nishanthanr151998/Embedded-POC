@@ -16,6 +16,7 @@
             width: 50%;
             padding: 20px;
             border-left: 1px solid #ccc;
+            overflow: auto;
         }
     </style>
 </head>
@@ -25,7 +26,9 @@
         <div id="editor-section">
             <form id="edit-form">
                 <label for="customer-select">Select Customer:</label>
-                <select id="customer-select"></select><br><br>
+                <select id="customer-select">
+                    <!-- Options will be populated dynamically -->
+                </select><br><br>
                 
                 <textarea id="style-editor" rows="40" cols="80"></textarea><br><br>
                 <input type="submit" value="Save Styles">
