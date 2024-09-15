@@ -4,6 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContainer = document.getElementById('preview-container');
     let currentStyles = {};
 
+    // Function to update the script tag for form.js with the selected style
+    function updateFormScript(customer) {
+        const existingScript = document.getElementById('script');
+
+        // If the script already exists, remove it
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        // Create and inject a new script tag with the updated style
+        const newScriptTag = document.createElement('script');
+        newScriptTag.src = `http://localhost:3000/form.js?style=${customer}`;
+        newScriptTag.id = 'form-script'; // Set an id to track the script
+        previewContainer.appendChild(newScriptTag);
+    }
+
     // Function to update the preview with the selected customer style
     function updatePreview(customer) {
         previewContainer.innerHTML = '';
@@ -31,16 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <label for="message">Message:</label>
                         <textarea id="message" name="message" required></textarea><br><br>
                         
-                        <input type="submit" value="Submit">
+                        <input type="button" id="back" value="Back">
+                        <input type="button" id="submit" value="Submit">
                     </div>
                 </form>
             </div>
         `;
 
-        // Inject the script tag for form.js with the selected style
-        const scriptTag = document.createElement('script');
-        scriptTag.src = `http://localhost:3000/form.js?style=${customer}`;
-        previewContainer.appendChild(scriptTag);
+        // Update the form script with the selected style
+        updateFormScript(customer);
     }
 
     // Function to load styles into the text area for editing

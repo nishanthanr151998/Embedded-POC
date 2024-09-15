@@ -66,21 +66,64 @@
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" required></textarea><br><br>
                 
-                <input type="submit" value="Submit">
+                <input type="button" id="back" value="Back">
+                <input type="button" id="submit" value="Submit">
             </div>
         </form>
     `;
     document.body.appendChild(formContainer);
 
-    // Handle "Next" button click
+    // Retrieve and populate form data from sessionStorage
+    function loadFormData() {
+        const name = sessionStorage.getItem('name');
+        const email = sessionStorage.getItem('email');
+        const phone = sessionStorage.getItem('phone');
+        const message = sessionStorage.getItem('message');
+        
+        if (name) document.getElementById('name').value = name;
+        if (email) document.getElementById('email').value = email;
+        if (phone) document.getElementById('phone').value = phone;
+        if (message) document.getElementById('message').value = message;
+    }
+
+    loadFormData();
+
+    // Handle "Next" button click and save data to sessionStorage
     document.getElementById('next').addEventListener('click', function() {
+        // Store form data
+        sessionStorage.setItem('name', document.getElementById('name').value);
+        sessionStorage.setItem('email', document.getElementById('email').value);
+        sessionStorage.setItem('phone', document.getElementById('phone').value);
+
+        // Navigate to the next page
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'block';
     });
 
-    // Handle form submission
-    document.getElementById('embedded-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        alert('Form submitted!');
+    // Handle "Back" button click to go back to page 1
+    document.getElementById('back').addEventListener('click', function() {
+        // Navigate back to the previous page
+        document.getElementById('page2').style.display = 'none';
+        document.getElementById('page1').style.display = 'block';
+
+        // Load form data back into page 1 fields
+        loadFormData();
     });
+
+  // Handle form submission and store the message
+  document.getElementById('submit').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Store the message in sessionStorage
+    sessionStorage.setItem('message', document.getElementById('message').value);
+    alert('Form submitted!');
+
+    // Clear sessionStorage and reset the form
+    sessionStorage.clear();
+    document.getElementById('page2').style.display = 'none';
+    document.getElementById('page1').style.display = 'block';
+
+    // // Clear form fields
+    document.getElementById('embedded-form').reset();
+});
 })();
