@@ -30,6 +30,10 @@ app.get('/form.js', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'form.js'));
 });
 
+app.get('/contactus.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'contactus.js'));
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
